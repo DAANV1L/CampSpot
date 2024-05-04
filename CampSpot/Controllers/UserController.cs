@@ -23,6 +23,7 @@ namespace CampSpot.Controllers
         [EnableCors("MyPolicy")]
         public ActionResult<IEnumerable<User>> Get()
         {
+            Console.WriteLine("1");
             return Ok(_Data.GetUsers());
         }
 
