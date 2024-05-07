@@ -11,5 +11,7 @@ namespace CampSpot.Data
         string GetUserType(int userTypeId);
         IEnumerable<UserTypeModel> GetUserTypes();
         void AddUserType(UserTypeModel userType);
+        bool LoginInstance(string emailpassword);
+
     }
 }

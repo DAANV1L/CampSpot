@@ -3,12 +3,57 @@ using CampSpot.Models;
 using CampSpot.Data;
 using CampSpot.Controllers;
 using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CampSpot.Data
 {
     public class CampSpotDataBase : CampSpotDataContext
     {
         LiteDatabase db = new LiteDatabase(@"Data.db");
+
+        public bool LoginInstance(string emailpassword)
+        {
+            Console.WriteLine(emailpassword);
+            byte[]? data = null;
+            try
+            {
+                data = Convert.FromBase64String(emailpassword);
+                emailpassword = System.Text.Encoding.UTF8.GetString(data);
+            }
+            catch {  }
+            
+            string email = emailpassword.Split(":")[0];
+            string password = emailpassword.Split(":")[1];
+            if (EmailExists(email))
+            {
+                var col = db.GetCollection<User>("users");
+                foreach (var user in col.FindAll())
+                {
+                    if (user.Email == email)
+                    {
+                        if (user.Password == HashPassword(password))
+                        {
+                            Console.WriteLine("Login granted");
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool EmailExists(string email)
+        {
+            var col = db.GetCollection<User>("users");
+            foreach (var user in col.FindAll())
+            {
+                if (user.Email == email)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public void AddUser(User user)
         {
             //hash the password
