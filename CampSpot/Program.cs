@@ -38,6 +38,7 @@ namespace CampSpot
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseCors();// sneaky basterd!
                 app.MapControllers();
             }
 
