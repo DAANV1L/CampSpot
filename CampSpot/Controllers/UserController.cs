@@ -4,6 +4,10 @@ using CampSpot.Models;
 using CampSpot.Data;
 using Microsoft.AspNetCore.Cors;
 using System.Buffers.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace CampSpot.Controllers
 {
@@ -46,12 +50,13 @@ namespace CampSpot.Controllers
             if (_Data.LoginInstance(emailpassword))
             {
                 Console.WriteLine("Oke response send");
-                return Ok(encodebasestringtostring(emailpassword));
+                var token = GenerateJwtToken(encodebasestringtostring(emailpassword));
+                return Ok(new { token });
             }
             else
             {
                 Console.WriteLine("Not found response send");
-                return NotFound();
+                return Unauthorized();
             }
         }
         private string encodebasestringtostring(string base64)
@@ -64,6 +69,35 @@ namespace CampSpot.Controllers
             }
             catch { return ""; }
         }
-    }
 
+        //generate login token
+        private string GenerateJwtToken(string username)
+        {
+            // Generate token key
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key_1234567890123456789012345678901"));
+
+            // Generate token credentials
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            // Create claims
+            var claims = new[]
+            {
+            new Claim(JwtRegisteredClaimNames.Sub, username),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+            // Create JWT token
+            var token = new JwtSecurityToken(
+                issuer: "your_issuer",
+                audience: "your_audience",
+                claims: claims,
+                expires: DateTime.UtcNow.AddDays(7), // Token expiration time
+                signingCredentials: creds
+            );
+
+            // Serialize token to a string
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+    }
 }
