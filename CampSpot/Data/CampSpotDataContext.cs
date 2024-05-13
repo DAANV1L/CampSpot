@@ -12,6 +12,7 @@ namespace CampSpot.Data
         IEnumerable<UserTypeModel> GetUserTypes();
         void AddUserType(UserTypeModel userType);
         bool LoginInstance(string emailpassword);
-
+        void AddUserLocation(CampingLocation campingLocation);
+        IEnumerable<CampingLocation> GetCampingLocations();
     }
 }

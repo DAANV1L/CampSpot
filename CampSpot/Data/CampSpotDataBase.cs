@@ -104,5 +104,17 @@ namespace CampSpot.Data
         {
             return db.GetCollection<UserTypeModel>("userTypes").FindAll();
         }
+
+        public void AddUserLocation(CampingLocation campingLocation)
+        {
+            var col = db.GetCollection<CampingLocation>("campingLocations");
+            col.Insert(campingLocation);
+        }
+
+        public IEnumerable<CampingLocation> GetCampingLocations()
+        {
+            return db.GetCollection<CampingLocation>("campingLocations").FindAll();
+        }
+        
     }
 }

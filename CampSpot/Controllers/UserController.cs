@@ -8,10 +8,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CampSpot.Controllers
 {
-
+    
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
@@ -70,10 +71,13 @@ namespace CampSpot.Controllers
             catch { return ""; }
         }
 
+
+
+
         //generate login token
         private string GenerateJwtToken(string username)
         {
-            // Generate token key
+            // token met gebruik van mijn geheime key
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key_1234567890123456789012345678901"));
 
             // Generate token credentials
@@ -88,7 +92,7 @@ namespace CampSpot.Controllers
 
             // Create JWT token
             var token = new JwtSecurityToken(
-                issuer: "your_issuer",
+                issuer: "localhost:5001",
                 audience: "your_audience",
                 claims: claims,
                 expires: DateTime.UtcNow.AddDays(7), // Token expiration time

@@ -12,7 +12,7 @@ namespace CampSpot
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //authentication for jwt
+            //authentication for jwt -- tijdelijk niet in gebruik te moeilijk
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -22,7 +22,7 @@ namespace CampSpot
                     ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "your_issuer",
+                    ValidIssuer = "localhost:5001",
                     ValidAudience = "your_audience",
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key_1234567890123456789012345678901"))
                 };
