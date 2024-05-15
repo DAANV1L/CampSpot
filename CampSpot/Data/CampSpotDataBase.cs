@@ -65,7 +65,6 @@ namespace CampSpot.Data
 
         public IEnumerable<User> GetUsers()
         {
-            Console.WriteLine("2");
             return db.GetCollection<User>("users").FindAll();
         }
 

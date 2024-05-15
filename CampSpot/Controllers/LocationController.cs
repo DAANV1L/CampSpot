@@ -27,5 +27,19 @@ namespace CampSpot.Controllers
             _Data.AddUserLocation(campingLocation);
             return Ok(campingLocation.ToString());
         }
+        [HttpGet]
+        [Route("GetLocation{id}")]
+        public ActionResult GetLocation(int id)
+        {
+            if (id != 0) { id = id -1; }
+            try
+            {
+                return Ok(_Data.GetCampingLocations().ElementAt(id));
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
     }
 }

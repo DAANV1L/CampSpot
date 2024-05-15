@@ -80,6 +80,7 @@ namespace CampSpot
             app.MapControllers();
 
             app.Run();
+            
         }
     }
 }
