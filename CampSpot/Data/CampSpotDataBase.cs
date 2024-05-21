@@ -115,5 +115,18 @@ namespace CampSpot.Data
             return db.GetCollection<CampingLocation>("campingLocations").FindAll();
         }
         
+        public void AddBooking(Booking booking)
+        {
+            var col = db.GetCollection<Booking>("booking");
+            col.Insert(booking);
+        }
+        public IEnumerable<Booking> GetBookings()
+        {
+            return db.GetCollection<Booking>("booking").FindAll();
+        }
+        public IEnumerable<Booking> GetBookings(int id)
+        {
+            return db.GetCollection<Booking>("booking").Find(b => b.LocationID == id);
+        }
     }
 }

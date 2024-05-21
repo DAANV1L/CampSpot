@@ -14,5 +14,8 @@ namespace CampSpot.Data
         bool LoginInstance(string emailpassword);
         void AddUserLocation(CampingLocation campingLocation);
         IEnumerable<CampingLocation> GetCampingLocations();
+        void AddBooking(Booking booking);
+        IEnumerable<Booking> GetBookings();
+        IEnumerable<Booking> GetBookings(int id);
     }
 }
