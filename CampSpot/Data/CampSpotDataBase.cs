@@ -11,9 +11,10 @@ namespace CampSpot.Data
     {
         LiteDatabase db = new LiteDatabase(@"Data.db");
 
-        public bool LoginInstance(string emailpassword)
+        public int LoginInstance(string emailpassword)
         {
-            Console.WriteLine(emailpassword);
+            //om voor mij even makkelijker te houden
+            //vind het gewoon lelijk dat je zelf je wachtwoord kunt zien, (doet niks Base64)
             byte[]? data = null;
             try
             {
@@ -33,13 +34,12 @@ namespace CampSpot.Data
                     {
                         if (user.Password == HashPassword(password))
                         {
-                            Console.WriteLine("Login granted");
-                            return true;
+                            return user.ID;
                         }
                     }
                 }
             }
-            return false;
+            return int.MinValue;
         }
 
         private bool EmailExists(string email)

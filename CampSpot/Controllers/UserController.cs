@@ -47,17 +47,15 @@ namespace CampSpot.Controllers
         [EnableCors("MyPolicy")]
         public ActionResult LoginInstance([FromBody] string emailpassword)
         {
-
-            if (_Data.LoginInstance(emailpassword))
+            int userid = _Data.LoginInstance(emailpassword);
+            if ( userid >= 0)
             {
-                Console.WriteLine("Oke response send");
-                var token = GenerateJwtToken(encodebasestringtostring(emailpassword));
+                var token = GenerateJwtToken(encodebasestringtostring(emailpassword)+":userid="+userid);
                 return Ok(new { token });
             }
             else
             {
-                Console.WriteLine("Not found response send");
-                return Unauthorized();
+                return Unauthorized("Invalid Information!");
             }
         }
         private string encodebasestringtostring(string base64)
