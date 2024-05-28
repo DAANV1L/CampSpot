@@ -34,5 +34,11 @@ namespace CampSpot.Controllers
         {
             return _context.GetBookings().Where(b => b.LocationID == id);
         }
+        [HttpGet]
+        [Route("GetUserBooking{id}")]
+        public IEnumerable<Booking> GetUserBookings(int id)
+        {
+            return _context.GetBookings().Where(b => b.UserID == id);
+        }
     }
 }

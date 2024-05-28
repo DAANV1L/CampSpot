@@ -4,6 +4,7 @@ using CampSpot.Data;
 using CampSpot.Controllers;
 using System;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Immutable;
 
 namespace CampSpot.Data
 {
@@ -127,6 +128,23 @@ namespace CampSpot.Data
         public IEnumerable<Booking> GetBookings(int id)
         {
             return db.GetCollection<Booking>("booking").Find(b => b.LocationID == id);
+        }
+        public IEnumerable<Booking> GetUserBookings(int id)
+        {
+            return db.GetCollection<Booking>("booking").Find(b => b.UserID == id);
+        }
+        public CampingLocation GetImageData(int id)
+        {
+            return db.GetCollection<CampingLocation>("CampingLocations").FindById(id);
+        }
+        public IEnumerable<CampingReview> GetReviews()
+        {
+            return db.GetCollection<CampingReview>("CampingReviews").FindAll();
+        }
+        public void AddReview(CampingReview review)
+        {
+            var col = db.GetCollection<CampingReview>("CampingReviews");
+            col.Insert(review);
         }
     }
 }

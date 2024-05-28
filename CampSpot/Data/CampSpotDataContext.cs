@@ -17,5 +17,9 @@ namespace CampSpot.Data
         void AddBooking(Booking booking);
         IEnumerable<Booking> GetBookings();
         IEnumerable<Booking> GetBookings(int id);
+        IEnumerable<Booking> GetUserBookings(int id);
+        CampingLocation GetImageData(int imgdata);
+        IEnumerable<CampingReview> GetReviews();
+        void AddReview(CampingReview review);
     }
 }

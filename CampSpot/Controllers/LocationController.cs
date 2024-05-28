@@ -31,7 +31,7 @@ namespace CampSpot.Controllers
         [Route("GetLocation{id}")]
         public ActionResult GetLocation(int id)
         {
-            if (id != 0) { id = id -1; }
+            if (id != 0) { id = id - 1; }
             try
             {
                 return Ok(_Data.GetCampingLocations().ElementAt(id));
@@ -40,6 +40,17 @@ namespace CampSpot.Controllers
             {
                 return NotFound();
             }
+        }
+        [HttpGet]
+        [Route("GetImageData{LocationID}")]
+        public string GetImageData(int LocationID)
+        {
+            var data = _Data.GetImageData(LocationID);
+            if (data != null)
+            {
+                return data.ImageData.ToString();
+            }
+            return "No Picture found!";
         }
     }
 }
