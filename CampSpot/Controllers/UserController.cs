@@ -63,6 +63,8 @@ namespace CampSpot.Controllers
         [Route("Update")]
         public ActionResult UpdateUser([FromBody]User user, int id)
         {
+            Console.WriteLine(user.ToString());
+            Console.WriteLine(id);
             _Data.UpdateUser(user, id);
             return Ok(user);
         }

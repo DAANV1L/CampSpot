@@ -149,6 +149,7 @@ namespace CampSpot.Data
         }
         public void UpdateUser(User user, int id)
         {
+            Console.WriteLine(user.ToString());
             var col = db.GetCollection<User>("users").FindById(id);
             if (col != null)
             {
@@ -157,6 +158,7 @@ namespace CampSpot.Data
                 col.Email = user.Email;
                 col.Address = user.Address;
                 col.PhoneNumber = user.PhoneNumber;
+                col.UserName = user.UserName;
                 db.GetCollection<User>("users").Update(col);
             }
             return;
