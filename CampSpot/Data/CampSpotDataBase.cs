@@ -11,7 +11,7 @@ namespace CampSpot.Data
     public class CampSpotDataBase : CampSpotDataContext
     {
         LiteDatabase db = new LiteDatabase(@"Data.db");
-
+        
         public int LoginInstance(string emailpassword)
         {
             //om voor mij even makkelijker te houden
@@ -53,6 +53,7 @@ namespace CampSpot.Data
                     return true;
                 }
             }
+            
             return false;
         }
         public void AddUser(User user)
@@ -145,6 +146,21 @@ namespace CampSpot.Data
         {
             var col = db.GetCollection<CampingReview>("CampingReviews");
             col.Insert(review);
+        }
+        public void UpdateUser(User user, int id)
+        {
+            var col = db.GetCollection<User>("users").FindById(id);
+            if (col != null)
+            {
+                col.FirstName = user.FirstName;
+                col.LastName = user.LastName;
+                col.Email = user.Email;
+                col.Address = user.Address;
+                col.PhoneNumber = user.PhoneNumber;
+                db.GetCollection<User>("users").Update(col);
+            }
+            return;
+
         }
     }
 }

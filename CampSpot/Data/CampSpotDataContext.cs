@@ -7,6 +7,7 @@ namespace CampSpot.Data
     public interface CampSpotDataContext
     {
         void AddUser(User user);
+        void UpdateUser(User user, int id);
         IEnumerable<User> GetUsers();
         string GetUserType(int userTypeId);
         IEnumerable<UserTypeModel> GetUserTypes();
@@ -21,5 +22,6 @@ namespace CampSpot.Data
         CampingLocation GetImageData(int imgdata);
         IEnumerable<CampingReview> GetReviews();
         void AddReview(CampingReview review);
+        
     }
 }

@@ -55,9 +55,19 @@ namespace CampSpot.Controllers
             }
             else
             {
-                return Unauthorized("Invalid Information!");
+                return Unauthorized();
             }
         }
+        //update the user
+        [HttpPut]
+        [Route("Update")]
+        public ActionResult UpdateUser([FromBody]User user, int id)
+        {
+            _Data.UpdateUser(user, id);
+            return Ok(user);
+        }
+
+
         private string encodebasestringtostring(string base64)
         {
             byte[]? data = null;
