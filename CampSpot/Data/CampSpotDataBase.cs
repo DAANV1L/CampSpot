@@ -106,10 +106,11 @@ namespace CampSpot.Data
             return db.GetCollection<UserTypeModel>("userTypes").FindAll();
         }
 
-        public void AddUserLocation(CampingLocation campingLocation)
+        public int AddUserLocation(CampingLocation campingLocation)
         {
             var col = db.GetCollection<CampingLocation>("campingLocations");
             col.Insert(campingLocation);
+            return db.GetCollection<CampingLocation>("campingLocations").Count();
         }
 
         public IEnumerable<CampingLocation> GetCampingLocations()
@@ -159,10 +160,28 @@ namespace CampSpot.Data
                 col.Address = user.Address;
                 col.PhoneNumber = user.PhoneNumber;
                 col.UserName = user.UserName;
+                col.UserType = user.UserType;
                 db.GetCollection<User>("users").Update(col);
             }
             return;
-
+        }
+        public void UpdateLocation(CampingLocation campingLocation, int id)
+        {
+            var col = db.GetCollection<CampingLocation>("campingLocations").FindById(id);
+            if (col != null)
+            {
+                col.LocationName = campingLocation.LocationName;
+                col.Description = campingLocation.Description;
+                col.PricePerNight = campingLocation.PricePerNight;
+                col.ImageData = campingLocation.ImageData;
+                col.CategoryID = campingLocation.CategoryID;
+                db.GetCollection<CampingLocation>("campingLocations").Update(col);
+            }
+            return;
+        }
+        public void RemoveLocation(int id)
+        {
+            db.GetCollection<CampingLocation>("campingLocations").Delete(id);
         }
     }
 }

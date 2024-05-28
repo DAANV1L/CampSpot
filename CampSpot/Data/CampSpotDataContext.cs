@@ -13,7 +13,7 @@ namespace CampSpot.Data
         IEnumerable<UserTypeModel> GetUserTypes();
         void AddUserType(UserTypeModel userType);
         int LoginInstance(string emailpassword);
-        void AddUserLocation(CampingLocation campingLocation);
+        int AddUserLocation(CampingLocation campingLocation);
         IEnumerable<CampingLocation> GetCampingLocations();
         void AddBooking(Booking booking);
         IEnumerable<Booking> GetBookings();
@@ -22,6 +22,7 @@ namespace CampSpot.Data
         CampingLocation GetImageData(int imgdata);
         IEnumerable<CampingReview> GetReviews();
         void AddReview(CampingReview review);
-        
+        void UpdateLocation(CampingLocation location, int id);
+        void RemoveLocation(int id);
     }
 }

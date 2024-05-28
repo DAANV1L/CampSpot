@@ -5,7 +5,7 @@ namespace CampSpot.Models
     public class User
     {
         public int ID { get; private set; }
-        public int UserType { get; private set; }
+        public int UserType { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }

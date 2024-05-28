@@ -25,16 +25,24 @@ namespace CampSpot.Controllers
         public ActionResult Post([FromBody] CampingLocation campingLocation)
         {
             _Data.AddUserLocation(campingLocation);
-            return Ok(campingLocation.ToString());
+            return Ok(campingLocation.ID);
         }
         [HttpGet]
         [Route("GetLocation{id}")]
         public ActionResult GetLocation(int id)
         {
-            if (id != 0) { id = id - 1; }
             try
             {
-                return Ok(_Data.GetCampingLocations().ElementAt(id));
+                var col = _Data.GetCampingLocations();
+                foreach (var location in col)
+                {
+                    if (location.ID == id)
+                    {
+                        return Ok(location);
+                    }
+                }
+                return NotFound();
+
             }
             catch
             {
@@ -51,6 +59,20 @@ namespace CampSpot.Controllers
                 return data.ImageData.ToString();
             }
             return "No Picture found!";
+        }
+        [HttpPut]
+        [Route("UpdateLocation")]
+        public ActionResult UpdateLocation([FromBody] CampingLocation campingLocation, int id)
+        {
+            _Data.UpdateLocation(campingLocation, id);
+            return Ok(campingLocation);
+        }
+        [HttpDelete]
+        [Route("RemoveLocation")]
+        public ActionResult RemoveLocation(int id)
+        {
+            _Data.RemoveLocation(id);
+            return Ok();
         }
     }
 }
