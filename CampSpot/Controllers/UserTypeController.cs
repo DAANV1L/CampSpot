@@ -17,20 +17,20 @@ namespace CampSpot.Controllers
 
 
         // get usertype by ID
-        [HttpGet]
+        [HttpGet("{id}")]
         [EnableCors("MyPolicy")]
-        public ActionResult<string> Get(int userTypeId)
+        public ActionResult<string> Get(int id)
         {
-            return Ok(_Data.GetUserType(userTypeId));
+            return Ok(_Data.GetUserType(id));
         }
 
         //// get all usertypes
-        //[HttpGet]
-        //[EnableCors("MyPolicy")]
-        //public ActionResult<IEnumerable<UserTypeModel>> Get()
-        //{
-        //    return Ok(_Data.GetUserTypes());
-        //}
+        [HttpGet]
+        [EnableCors("MyPolicy")]
+        public ActionResult<IEnumerable<UserTypeModel>> Get()
+        {
+            return Ok(_Data.GetUserTypes());
+        }
 
 
 

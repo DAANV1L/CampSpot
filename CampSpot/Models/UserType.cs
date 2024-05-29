@@ -2,7 +2,7 @@
 {
     public class UserTypeModel
     {
-        public int TypeID { get; set; }
+        public int TypeID { get; private set; }
         public string TypeName { get; set; }
     }
 }
