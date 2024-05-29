@@ -105,7 +105,7 @@ namespace CampSpot.Controllers
                 issuer: "localhost:5001",
                 audience: "your_audience",
                 claims: claims,
-                expires: DateTime.UtcNow.AddDays(7), // Token expiration time
+                expires: DateTime.UtcNow.AddHours(1), // Token expiration time
                 signingCredentials: creds
             );
 

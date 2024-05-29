@@ -46,6 +46,17 @@ namespace CampSpot.Data
         private bool EmailExists(string email)
         {
             var col = db.GetCollection<User>("users");
+            try
+            {
+                foreach (var user in col.FindAll())
+                {
+                    if (user.Email == email)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch {  }
             foreach (var user in col.FindAll())
             {
                 if (user.Email == email)
@@ -53,7 +64,7 @@ namespace CampSpot.Data
                     return true;
                 }
             }
-            
+               
             return false;
         }
         public void AddUser(User user)
