@@ -67,7 +67,12 @@ namespace CampSpot.Data
 
         public IEnumerable<User> GetUsers()
         {
-            return db.GetCollection<User>("users").FindAll();
+            try
+            {
+                return db.GetCollection<User>("users").FindAll();
+            }
+            catch { return db.GetCollection<User>("users").FindAll(); }
+
         }
 
         public string GetUserType(int userTypeId)
@@ -137,7 +142,12 @@ namespace CampSpot.Data
         }
         public CampingLocation GetImageData(int id)
         {
-            return db.GetCollection<CampingLocation>("CampingLocations").FindById(id);
+            try
+            {
+                return db.GetCollection<CampingLocation>("CampingLocations").FindById(id);
+
+            }
+            catch { return null; }
         }
         public IEnumerable<CampingReview> GetReviews()
         {
